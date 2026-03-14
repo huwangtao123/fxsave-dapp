@@ -90,7 +90,13 @@ fxsave-dapp/
 
 ## Environment variables
 
-Create `.env.local` in the project root.
+Copy `.env.example` to `.env.local` in the project root.
+
+```bash
+cp .env.example .env.local
+```
+
+Then fill in the values:
 
 ```bash
 ENSO_API_KEY=

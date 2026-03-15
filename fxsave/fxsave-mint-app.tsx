@@ -9,7 +9,6 @@ import {
   Flame,
   RefreshCw,
   ShieldCheck,
-  Unplug,
   Wallet,
   Waves,
 } from "lucide-react";
@@ -17,7 +16,6 @@ import { erc20Abi, type Address, type Hex } from "viem";
 import {
   useAccount,
   useConnect,
-  useDisconnect,
   usePublicClient,
   useSendTransaction,
   useSwitchChain,
@@ -35,6 +33,7 @@ import {
   isAddress,
   parseUnits,
 } from "@/fxsave/fxsave";
+import { FxsaveTopMenu } from "@/fxsave/fxsave-top-menu";
 
 type PresetToken = (typeof FXSAVE_CONFIG.baseTokenOptions)[number];
 
@@ -255,7 +254,6 @@ export function FxsaveMintApp() {
   const { address, chainId, isConnected } = useAccount();
   const publicClient = usePublicClient({ chainId: base.id });
   const { connectAsync, connectors, isPending: isConnecting } = useConnect();
-  const { disconnect } = useDisconnect();
   const { sendTransactionAsync, isPending: isSendingTransaction } = useSendTransaction();
   const { switchChainAsync, isPending: isSwitchingChain } = useSwitchChain();
   const {
@@ -606,63 +604,20 @@ export function FxsaveMintApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07131a] text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(49,196,141,0.16),_transparent_28%),linear-gradient(180deg,_rgba(7,19,26,0.95),_rgba(5,10,15,1))]" />
+    <div className="min-h-screen bg-[#041018] font-mono text-white">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(7,63,72,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(7,63,72,0.14)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,225,255,0.08),transparent_26%),linear-gradient(180deg,rgba(4,16,24,0.24),#041018_76%)]" />
       <div className="relative mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 lg:px-8">
-        <header className="mb-8 space-y-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="space-y-3">
-              <Badge className="border border-emerald-400/30 bg-emerald-400/12 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-emerald-200 hover:bg-emerald-400/12">
-                Base fxSAVE router
-              </Badge>
-              <div className="space-y-3">
-                <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                  Mint and redeem <span className="text-emerald-300">fxSAVE on Base</span>
-                </h1>
-                <p className="max-w-2xl text-base leading-7 text-slate-300">
-                  Use one view to move from Base assets into fxSAVE, or flip direction and exit fxSAVE back into Base assets.
-                </p>
-              </div>
-            </div>
+        <FxsaveTopMenu active="home" />
 
-            <div className="flex shrink-0 items-center gap-3">
-              {isConnected ? (
-                <>
-                  <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-sm text-white">
-                    <Wallet className="size-4 text-emerald-300" />
-                    <span className="font-medium">{shortAddress(address)}</span>
-                  </div>
-                  <Button
-                    className="h-12 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-white hover:bg-white/10"
-                    onClick={() => disconnect()}
-                    type="button"
-                    variant="outline"
-                  >
-                    <Unplug className="size-4" />
-                    Disconnect
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  className="h-12 rounded-2xl bg-white px-5 text-black hover:bg-slate-100"
-                  disabled={isConnecting}
-                  onClick={handleConnectWallet}
-                  type="button"
-                >
-                  {isConnecting ? (
-                    <>
-                      <RefreshCw className="size-4 animate-spin" />
-                      Connecting
-                    </>
-                  ) : (
-                    <>
-                      <Wallet className="size-4" />
-                      Connect Wallet
-                    </>
-                  )}
-                </Button>
-              )}
-            </div>
+        <header className="mb-8 mt-8 space-y-5">
+          <div className="space-y-3">
+            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              Mint and redeem <span className="text-cyan-300">fxSAVE on Base</span>
+            </h1>
+            <p className="max-w-2xl text-base leading-7 text-slate-300">
+              Use one view to move from Base assets into fxSAVE, or flip direction and exit fxSAVE back into Base assets.
+            </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">
@@ -677,29 +632,29 @@ export function FxsaveMintApp() {
         </header>
 
         <main className="space-y-6">
-          <Card className="overflow-hidden border-white/10 bg-white/6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+          <Card className="overflow-hidden border-cyan-400/25 bg-[rgba(4,16,24,0.76)] shadow-none backdrop-blur-none">
             <CardContent className="space-y-6 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-400">fxSAVE</p>
+                  <p className="text-sm uppercase tracking-[0.24em] text-cyan-300">fxSAVE</p>
                   <h2 className="mt-2 text-2xl font-semibold text-white">
                     {direction === "mint" ? "Build the mint round-trip" : "Exit the fxSAVE position"}
                   </h2>
                 </div>
-                <Badge className="border border-emerald-400/30 bg-emerald-400/10 text-emerald-200 hover:bg-emerald-400/10">
+                <Badge className="border border-cyan-400/30 bg-cyan-400/10 text-cyan-200 hover:bg-cyan-400/10">
                   {direction === "mint" ? "Mode: Mint" : "Mode: Redeem"}
                 </Badge>
               </div>
 
               <form className="space-y-5" onSubmit={handleSubmit}>
-                <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03]">
+                <div className="overflow-hidden border border-cyan-400/25 bg-[rgba(4,16,24,0.72)]">
                   <div className="grid gap-4 p-5 md:grid-cols-[minmax(0,1.4fr)_180px_140px]">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-300">
                         Amount to deposit
                       </label>
                       <input
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-[#0b1b24] px-4 text-2xl font-semibold text-white outline-none transition placeholder:text-slate-600 hover:border-emerald-300/30 focus:border-emerald-300/60"
+                        className="h-14 w-full border border-cyan-400/25 bg-[#020b11] px-4 text-2xl font-semibold text-white outline-none transition placeholder:text-slate-600 hover:border-cyan-300/40 focus:border-cyan-300/60"
                         inputMode="decimal"
                         onChange={(event) => setAmount(event.target.value)}
                         placeholder="0"
@@ -728,7 +683,8 @@ export function FxsaveMintApp() {
                   <div className="border-y border-white/10 px-5 py-4">
                     <div className="flex items-center justify-center">
                       <button
-                        className="flex size-14 items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-300/10 text-emerald-200 transition hover:border-emerald-300/50 hover:bg-emerald-300/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60"
+                        aria-label="Flip mint direction"
+                        className="flex size-14 items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 text-cyan-200 transition hover:border-cyan-300/50 hover:bg-cyan-300/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
                         onClick={handleFlipDirection}
                         type="button"
                       >
@@ -745,7 +701,7 @@ export function FxsaveMintApp() {
                       <label className="mb-2 block text-sm font-medium text-slate-300">
                         Amount to receive
                       </label>
-                      <div className="flex h-14 items-center rounded-2xl border border-white/10 bg-[#0b1b24] px-4 text-2xl font-semibold text-white">
+                      <div className="flex h-14 items-center border border-cyan-400/25 bg-[#020b11] px-4 text-2xl font-semibold text-white">
                         {estimatedTargetOutput
                           ? formatTokenAmount(estimatedTargetOutput, targetToken.decimals)
                           : "0"}
@@ -770,14 +726,14 @@ export function FxsaveMintApp() {
                   </div>
 
                   <div className="px-5 pb-5">
-                    <div className="rounded-2xl bg-emerald-300/10 px-4 py-3 text-sm text-emerald-100">
+                    <div className="bg-cyan-300/10 px-4 py-3 text-sm text-cyan-100">
                       Estimated output on Base: {estimatedTargetDisplay}
                     </div>
                   </div>
                 </div>
 
                 <Button
-                  className="h-14 w-full rounded-2xl bg-emerald-300 text-[#041116] transition hover:bg-emerald-200"
+                  className="h-14 w-full bg-cyan-300 text-[#041018] transition hover:bg-cyan-200"
                   disabled={isConnecting || loading || isSendingTransaction || isSwitchingChain || isConfirmingReceipt}
                   size="lg"
                   type="submit"
@@ -911,7 +867,7 @@ function TokenSelect(props: { onChange: (value: string) => void; value: string }
   return (
     <div className="relative">
       <select
-        className="h-14 w-full appearance-none rounded-2xl border border-white/10 bg-[#0b1b24] px-4 pr-10 text-base text-white outline-none transition hover:border-emerald-300/30 focus:border-emerald-300/30 focus-visible:ring-2 focus-visible:ring-emerald-300/60"
+        className="h-14 w-full appearance-none border border-cyan-400/25 bg-[#020b11] px-4 pr-10 text-base text-white outline-none transition hover:border-cyan-300/40 focus:border-cyan-300/40 focus-visible:ring-2 focus-visible:ring-cyan-300/60"
         onChange={(event) => props.onChange(event.target.value)}
         value={props.value}
       >
@@ -929,7 +885,7 @@ function TokenSelect(props: { onChange: (value: string) => void; value: string }
 
 function StaticField(props: { value: string }) {
   return (
-    <div className="flex h-14 items-center rounded-2xl border border-white/10 bg-[#0b1b24] px-4 text-base text-white">
+    <div className="flex h-14 items-center border border-cyan-400/25 bg-[#020b11] px-4 text-base text-white">
       {props.value}
     </div>
   );
@@ -937,8 +893,8 @@ function StaticField(props: { value: string }) {
 
 function MetricCard(props: { icon: ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-slate-300 backdrop-blur-sm">
-      <div className="mb-3 flex size-9 items-center justify-center rounded-2xl bg-white/8 text-emerald-200">
+    <div className="border border-cyan-400/25 bg-[rgba(4,16,24,0.76)] px-4 py-4 text-sm text-slate-300">
+      <div className="mb-3 flex size-9 items-center justify-center bg-cyan-300/10 text-cyan-200">
         {props.icon}
       </div>
       <p className="text-xs uppercase tracking-[0.22em] text-slate-500">{props.label}</p>
@@ -958,7 +914,7 @@ function TextInput(props: {
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-slate-300">{props.label}</span>
       <input
-        className="h-12 w-full rounded-2xl border border-white/10 bg-[#0b1b24] px-4 text-sm text-white outline-none transition placeholder:text-slate-600 hover:border-emerald-300/30 focus:border-emerald-300/30 focus-visible:ring-2 focus-visible:ring-emerald-300/60 read-only:cursor-not-allowed read-only:opacity-80"
+        className="h-12 w-full border border-cyan-400/25 bg-[#020b11] px-4 text-sm text-white outline-none transition placeholder:text-slate-600 hover:border-cyan-300/40 focus:border-cyan-300/40 focus-visible:ring-2 focus-visible:ring-cyan-300/60 read-only:cursor-not-allowed read-only:opacity-80"
         onChange={(event) => props.onChange(event.target.value)}
         placeholder={props.placeholder}
         readOnly={props.readOnly}

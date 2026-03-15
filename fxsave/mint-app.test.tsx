@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 
-import { FxsaveMintApp } from "@/fxsave/fxsave-mint-app";
+import { FxsaveMintApp } from "@/fxsave/mint-app";
 
 vi.mock("wagmi", () => ({
   useAccount: () => ({

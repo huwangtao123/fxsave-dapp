@@ -1,1 +1,1 @@
-export { POST } from "@/fxsave/fxsave-approve-route";
+export { POST } from "@/fxsave/approve-route";

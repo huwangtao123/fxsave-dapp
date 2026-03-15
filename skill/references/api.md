@@ -7,26 +7,26 @@ This file documents the current app-facing API contract for agent use.
 ## CLI helper
 
 Script:
-- `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py`
+- `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py`
 
 Examples:
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py mint \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py mint \
   --from-address 0x... \
   --amount 1 \
   --source-token fxUSD
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py redeem \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py redeem \
   --from-address 0x... \
   --amount 1 \
   --target-token USDC
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py approval \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py approval \
   --from-address 0x... \
   --amount 1 \
   --token fxSAVE

@@ -1,1 +1,1 @@
-export { POST } from "@/fxsave/fxsave-bundle-route";
+export { POST } from "@/fxsave/bundle-route";

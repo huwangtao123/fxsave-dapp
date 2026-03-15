@@ -9,7 +9,7 @@ import {
   getFlowSteps,
   isAddress,
   parseUnits,
-} from "@/fxsave/fxsave";
+} from "@/fxsave/config";
 
 type RequestBody = {
   amount?: string;

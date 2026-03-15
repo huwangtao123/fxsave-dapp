@@ -32,8 +32,8 @@ import {
   FxsaveDirection,
   isAddress,
   parseUnits,
-} from "@/fxsave/fxsave";
-import { FxsaveTopMenu } from "@/fxsave/fxsave-top-menu";
+} from "@/fxsave/config";
+import { FxsaveTopMenu } from "@/fxsave/top-menu";
 
 type PresetToken = (typeof FXSAVE_CONFIG.baseTokenOptions)[number];
 

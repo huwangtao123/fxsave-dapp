@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 
-import { FxsaveMintApp } from "@/fxsave/fxsave-mint-app";
+import { FxsaveMintApp } from "@/fxsave/mint-app";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],

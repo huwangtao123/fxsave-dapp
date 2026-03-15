@@ -22,7 +22,7 @@ Use this skill when the task is to operate the fxSAVE Enso flow through the webs
 
 - Bundle builder: `/api/fxsave/fxsave-bundle`
 - Approval builder: `/api/fxsave/fxsave-approve`
-- CLI helper: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py`
+- CLI helper: `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py`
 
 Read [references/api.md](references/api.md) before building requests.
 
@@ -82,11 +82,11 @@ Custom token support is intended for local debugging and can be disabled in prod
 
 ## Files to inspect when behavior changes
 
-- App logic: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/fxsave-mint-app.tsx`
-- Bundle route: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/fxsave-bundle-route.ts`
-- Approval route: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/fxsave-approve-route.ts`
-- Token config: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/fxsave.ts`
-- CLI helper: `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py`
+- App logic: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/mint-app.tsx`
+- Bundle route: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/bundle-route.ts`
+- Approval route: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/approve-route.ts`
+- Token config: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/config.ts`
+- CLI helper: `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py`
 
 ## Response handling
 
@@ -99,4 +99,4 @@ Custom token support is intended for local debugging and can be disabled in prod
 
 - Read [references/api.md](references/api.md) for request and response payloads
 - Read the app files only if the backend behavior appears stale or mismatched
-- Use `/Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py` for quick local preview runs
+- Use `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py` for quick local preview runs

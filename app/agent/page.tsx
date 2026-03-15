@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
-import { FxsaveAgentPage } from "@/fxsave/fxsave-agent-page";
+import { FxsaveAgentPage } from "@/fxsave/agent-page";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],

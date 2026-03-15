@@ -36,21 +36,24 @@ fxsave-dapp/
 │   ├── api/fxsave/
 │   │   ├── fxsave-approve/route.ts
 │   │   └── fxsave-bundle/route.ts
+│   ├── agent/page.tsx
 │   ├── layout.tsx
 │   └── page.tsx
 ├── fxsave/
-│   ├── SKILL.md
+│   ├── agent-page.tsx
 │   ├── api-security.ts
-│   ├── fxsave-approve-route.ts
-│   ├── fxsave-bundle-route.ts
-│   ├── fxsave-mint-app.tsx
-│   ├── fxsave.ts
-│   ├── references/api.md
-│   ├── scripts/fxsave_cli.py
+│   ├── approve-route.ts
+│   ├── bundle-route.ts
+│   ├── config.ts
+│   ├── mint-app.tsx
+│   ├── top-menu.tsx
 │   ├── wagmi-config.ts
 │   └── wallet-provider.tsx
+├── skill/
+│   ├── SKILL.md
+│   ├── references/api.md
+│   └── scripts/fxsave_cli.py
 ├── components/
-├── public/
 ├── next.config.ts
 ├── package.json
 └── README.md
@@ -59,14 +62,16 @@ fxsave-dapp/
 ## Core files
 
 - App entry: `app/page.tsx`
+- Agent entry: `app/agent/page.tsx`
 - Shared wallet provider: `app/layout.tsx`
-- Main UI: `fxsave/fxsave-mint-app.tsx`
-- Token and flow config: `fxsave/fxsave.ts`
-- Bundle API logic: `fxsave/fxsave-bundle-route.ts`
-- Approval API logic: `fxsave/fxsave-approve-route.ts`
+- Main UI: `fxsave/mint-app.tsx`
+- Agent page UI: `fxsave/agent-page.tsx`
+- Token and flow config: `fxsave/config.ts`
+- Bundle API logic: `fxsave/bundle-route.ts`
+- Approval API logic: `fxsave/approve-route.ts`
 - API hardening: `fxsave/api-security.ts`
-- Agent docs: `fxsave/SKILL.md`
-- CLI helper: `fxsave/scripts/fxsave_cli.py`
+- Agent docs: `skill/SKILL.md`
+- CLI helper: `skill/scripts/fxsave_cli.py`
 
 ## Supported flow
 
@@ -187,32 +192,32 @@ The frontend uses this response to:
 - skip approval if allowance is already sufficient
 
 For payload examples, see:
-- `fxsave/references/api.md`
+- `skill/references/api.md`
 
 ## CLI helper
 
 The project includes a local CLI for previewing bundle and approval plans without opening the UI:
 
-`fxsave/scripts/fxsave_cli.py`
+`skill/scripts/fxsave_cli.py`
 
 Examples:
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py mint \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py mint \
   --from-address 0x... \
   --amount 1 \
   --source-token fxUSD
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py redeem \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py redeem \
   --from-address 0x... \
   --amount 1 \
   --target-token USDC
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/smart-welcome/fxsave-dapp/fxsave/scripts/fxsave_cli.py approval \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py approval \
   --from-address 0x... \
   --amount 1 \
   --token fxSAVE
@@ -250,8 +255,8 @@ Before deploying:
 
 This project includes agent-oriented docs in:
 
-- `fxsave/SKILL.md`
-- `fxsave/references/api.md`
+- `skill/SKILL.md`
+- `skill/references/api.md`
 
 Use those files when an agent needs to:
 - plan a mint or redeem flow
@@ -260,6 +265,6 @@ Use those files when an agent needs to:
 
 ## Status
 
-This repo is now organized so `fxsave` is the single feature workspace inside the app. The relevant business logic, agent docs, and helper CLI all live under:
-
-`fxsave/`
+This repo is now organized with a clear split:
+- `fxsave/` for runtime app logic
+- `skill/` for agent docs and CLI tooling

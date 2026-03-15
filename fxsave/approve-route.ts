@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { enforceRateLimit, enforceTrustedOrigin } from "@/fxsave/api-security";
-import { FXSAVE_CONFIG, getBaseTokenOptionByAddress, isAddress } from "@/fxsave/fxsave";
+import { FXSAVE_CONFIG, getBaseTokenOptionByAddress, isAddress } from "@/fxsave/config";
 
 type RequestBody = {
   amount?: string;

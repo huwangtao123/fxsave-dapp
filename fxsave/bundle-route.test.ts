@@ -2,7 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { POST } from "@/fxsave/fxsave-bundle-route";
+import { POST } from "@/fxsave/bundle-route";
 
 function buildRequest(body: unknown, headers: HeadersInit = {}) {
   return new Request("https://fxsave.test/api/fxsave/fxsave-bundle", {

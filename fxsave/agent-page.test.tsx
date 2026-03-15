@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 
-import { FxsaveAgentPage } from "@/fxsave/fxsave-agent-page";
+import { FxsaveAgentPage } from "@/fxsave/agent-page";
 
 describe("FxsaveAgentPage", () => {
   it("renders the agent hero and primary integration details", () => {
@@ -19,14 +19,16 @@ describe("FxsaveAgentPage", () => {
     expect(screen.getByText(/redeem 50% of my fxsave to fxusd\./i)).toBeInTheDocument();
     expect(screen.getByText(/skill location:/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/https:\/\/github\.com\/huwangtao123\/fxsave-dapp\/blob\/main\/fxsave\/SKILL\.md/i),
+      screen.getByText(/https:\/\/github\.com\/huwangtao123\/fxsave-dapp\/blob\/main\/skill\/SKILL\.md/i),
     ).toBeInTheDocument();
+    expect(screen.getByText(/skill repo:/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/https:\/\/github\.com\/huwangtao123\/fxsave-dapp\.git/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/install destination:/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/~\/\.codex\/skills\/fxsave\/SKILL\.md/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/~\/\.codex\/skills\/fxsave\//i).length).toBeGreaterThan(0);
     expect(screen.queryByText(/auth/i)).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        /mkdir -p ~\/\.codex\/skills\/fxsave && curl -s https:\/\/raw\.githubusercontent\.com\/huwangtao123\/fxsave-dapp\/main\/fxsave\/SKILL\.md -o ~\/\.codex\/skills\/fxsave\/SKILL\.md/i,
+        /tmpdir=\$\(mktemp -d\) && git clone --depth 1 https:\/\/github\.com\/huwangtao123\/fxsave-dapp\.git "\$tmpdir" && mkdir -p ~\/\.codex\/skills\/fxsave && cp -R "\$tmpdir\/skill\/\." ~\/\.codex\/skills\/fxsave\/ && rm -rf "\$tmpdir"/i,
       ),
     ).toBeInTheDocument();
   });
@@ -46,7 +48,7 @@ describe("FxsaveAgentPage", () => {
     await user.click(screen.getByRole("button", { name: /copy/i }));
 
     expect(clipboard.writeText).toHaveBeenCalledWith(
-      "mkdir -p ~/.codex/skills/fxsave && curl -s https://raw.githubusercontent.com/huwangtao123/fxsave-dapp/main/fxsave/SKILL.md -o ~/.codex/skills/fxsave/SKILL.md",
+      'tmpdir=$(mktemp -d) && git clone --depth 1 https://github.com/huwangtao123/fxsave-dapp.git "$tmpdir" && mkdir -p ~/.codex/skills/fxsave && cp -R "$tmpdir/skill/." ~/.codex/skills/fxsave/ && rm -rf "$tmpdir"',
     );
   });
 });

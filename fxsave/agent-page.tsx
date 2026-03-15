@@ -2,17 +2,18 @@
 
 import { useState } from "react";
 
-import { FxsaveTopMenu } from "@/fxsave/fxsave-top-menu";
+import { FxsaveTopMenu } from "@/fxsave/top-menu";
 
-const skillPageUrl = "https://github.com/huwangtao123/fxsave-dapp/blob/main/fxsave/SKILL.md";
-const skillRawUrl = "https://raw.githubusercontent.com/huwangtao123/fxsave-dapp/main/fxsave/SKILL.md";
-const installLocation = "~/.codex/skills/fxsave/SKILL.md";
-const installCommand = `mkdir -p ~/.codex/skills/fxsave && curl -s ${skillRawUrl} -o ${installLocation}`;
+const skillPageUrl = "https://github.com/huwangtao123/fxsave-dapp/blob/main/skill/SKILL.md";
+const repoUrl = "https://github.com/huwangtao123/fxsave-dapp.git";
+const installLocation = "~/.codex/skills/fxsave/";
+const installCommand =
+  'tmpdir=$(mktemp -d) && git clone --depth 1 https://github.com/huwangtao123/fxsave-dapp.git "$tmpdir" && mkdir -p ~/.codex/skills/fxsave && cp -R "$tmpdir/skill/." ~/.codex/skills/fxsave/ && rm -rf "$tmpdir"';
 
 const installSteps = [
   {
     number: "1.",
-    body: "Run the command above. It writes the fxSAVE skill file into your local Codex skills folder.",
+    body: "Run the command above. It copies the full fxSAVE skill folder, including references and scripts.",
   },
   {
     number: "2.",
@@ -40,7 +41,23 @@ export function FxsaveAgentPage() {
 
   async function handleCopyInstall() {
     try {
-      await navigator.clipboard.writeText(installCommand);
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(installCommand);
+      } else if (typeof document !== "undefined") {
+        const textarea = document.createElement("textarea");
+
+        textarea.value = installCommand;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      } else {
+        throw new Error("Clipboard unavailable");
+      }
+
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1200);
     } catch {
@@ -83,6 +100,9 @@ export function FxsaveAgentPage() {
             </div>
             <p className="mt-4 break-all text-lg text-slate-400">
               Skill location: <span className="text-cyan-200">{skillPageUrl}</span>
+            </p>
+            <p className="mt-2 break-all text-lg text-slate-400">
+              Skill repo: <span className="text-cyan-200">{repoUrl}</span>
             </p>
             <p className="mt-2 text-lg text-slate-400">
               Install destination: <span className="text-cyan-200">{installLocation}</span>

@@ -1,13 +1,53 @@
 ---
-name: fxsave
-description: Use the fxSAVE website APIs to mint fxSAVE from Base assets or redeem fxSAVE back into Base assets. Use when the user wants to mint fxSAVE, redeem fxSAVE, preview the route, build an executable bundle, or execute the approval plus transaction flow for either direction.
+name: fxusd
+description: Use when the user wants a shortcut to mint or redeem Base fxSAVE through the website backend, without manually bridging between Base and Ethereum mainnet or reconstructing Enso payloads by hand.
 ---
 
-# fxsave
+# fxusd
 
-Version: `v0.2.0`
+Version: `v0.2.1`
 
 Use this skill when the task is to operate the fxSAVE Enso flow through the website backend, not by manually reconstructing Enso payloads from scratch.
+
+## Why this skill exists
+
+This skill turns the Base-side `fxSAVE` experience into a shortcut.
+
+Without the shortcut, the user or agent would need to think through multiple hidden steps across Base and Ethereum mainnet. This skill packages those steps behind the app routes so the request can stay simple: mint `fxSAVE` or redeem `fxSAVE`.
+
+## Shortcut model
+
+### Mint fxSAVE
+
+```text
+Base asset
+  -> bridge to Ethereum mainnet
+  -> deposit into fxSAVE
+  -> bridge fxSAVE back to Base
+  -> receive Base fxSAVE
+```
+
+Examples of Base assets:
+- `fxUSD`
+- `USDC`
+- `WETH`
+
+### Redeem fxSAVE
+
+```text
+Base fxSAVE
+  -> bridge to Ethereum mainnet
+  -> redeem out of fxSAVE
+  -> bridge the output asset back to Base
+  -> receive the Base asset
+```
+
+Examples of Base outputs:
+- `fxUSD`
+- `USDC`
+- `WETH`
+
+The purpose of this skill is to let an agent work at the shortcut level, not at the manual bridge-and-deposit level.
 
 ## What this skill supports
 
@@ -22,9 +62,8 @@ Use this skill when the task is to operate the fxSAVE Enso flow through the webs
 
 - Bundle builder: `/api/fxsave/fxsave-bundle`
 - Approval builder: `/api/fxsave/fxsave-approve`
-- CLI helper: `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py`
 
-Read [references/api.md](references/api.md) before building requests.
+This skill is self-contained. A local install only needs `SKILL.md`.
 
 ## Workflow
 
@@ -52,6 +91,85 @@ Read [references/api.md](references/api.md) before building requests.
 - Submit approval first when needed
 - Submit the main transaction second
 - Tell the user that bridging and settlement are asynchronous
+
+## API request shapes
+
+### Bundle request
+
+Mint:
+
+```json
+{
+  "amount": "1",
+  "direction": "mint",
+  "fromAddress": "0x...",
+  "receiver": "0x...",
+  "sourceTokenAddress": "0x...",
+  "sourceTokenSymbol": "fxUSD",
+  "sourceTokenDecimals": 18
+}
+```
+
+Redeem:
+
+```json
+{
+  "amount": "1",
+  "direction": "redeem",
+  "fromAddress": "0x...",
+  "receiver": "0x...",
+  "targetTokenAddress": "0x...",
+  "targetTokenSymbol": "USDC",
+  "targetTokenDecimals": 6
+}
+```
+
+Bundle success response:
+
+```json
+{
+  "flow": [],
+  "result": {
+    "tx": {
+      "to": "0x...",
+      "from": "0x...",
+      "data": "0x...",
+      "value": "0"
+    },
+    "amountsOut": {},
+    "minAmountsOut": {},
+    "bridgingEstimates": []
+  },
+  "quotePlan": {},
+  "warnings": []
+}
+```
+
+### Approval request
+
+```json
+{
+  "amount": "1000000000000000000",
+  "fromAddress": "0x...",
+  "tokenAddress": "0x..."
+}
+```
+
+Approval success response:
+
+```json
+{
+  "result": {
+    "spender": "0x...",
+    "amount": "1000000000000000000",
+    "tx": {
+      "to": "0x...",
+      "data": "0x...",
+      "value": "0"
+    }
+  }
+}
+```
 
 ## Source token rules
 
@@ -86,7 +204,6 @@ Custom token support is intended for local debugging and can be disabled in prod
 - Bundle route: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/bundle-route.ts`
 - Approval route: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/approve-route.ts`
 - Token config: `/Users/taowang/workspace/skills/fxsave-dapp/fxsave/config.ts`
-- CLI helper: `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py`
 
 ## Response handling
 
@@ -97,6 +214,4 @@ Custom token support is intended for local debugging and can be disabled in prod
 
 ## When to read more
 
-- Read [references/api.md](references/api.md) for request and response payloads
 - Read the app files only if the backend behavior appears stale or mismatched
-- Use `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py` for quick local preview runs

@@ -1,8 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import copy from "copy-to-clipboard";
 import { vi } from "vitest";
 
 import { FxsaveAgentPage } from "@/fxsave/agent-page";
+
+vi.mock("copy-to-clipboard", () => ({
+  default: vi.fn(),
+}));
 
 describe("FxsaveAgentPage", () => {
   it("renders the agent hero and primary integration details", () => {
@@ -17,38 +21,41 @@ describe("FxsaveAgentPage", () => {
     expect(screen.getByText(/deposit all my fxusd in wallet to fxsave\./i)).toBeInTheDocument();
     expect(screen.getByText(/> redeem fxsave/i)).toBeInTheDocument();
     expect(screen.getByText(/redeem 50% of my fxsave to fxusd\./i)).toBeInTheDocument();
-    expect(screen.getByText(/skill location:/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(/https:\/\/github\.com\/huwangtao123\/fxsave-dapp\/blob\/main\/skill\/SKILL\.md/i),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/skill repo:/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/https:\/\/github\.com\/huwangtao123\/fxsave-dapp\.git/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/install destination:/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/~\/\.codex\/skills\/fxsave\//i).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/skill location:/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/skill repo:/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/install destination:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/auth/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/the output is the self-contained fxusd skill file\./i)).toBeInTheDocument();
     expect(
       screen.getByText(
-        /tmpdir=\$\(mktemp -d\) && git clone --depth 1 https:\/\/github\.com\/huwangtao123\/fxsave-dapp\.git "\$tmpdir" && mkdir -p ~\/\.codex\/skills\/fxsave && cp -R "\$tmpdir\/skill\/\." ~\/\.codex\/skills\/fxsave\/ && rm -rf "\$tmpdir"/i,
+        /curl -Ls https:\/\/raw\.githubusercontent\.com\/huwangtao123\/fxsave-dapp\/main\/skill\/SKILL\.md/i,
       ),
     ).toBeInTheDocument();
   });
 
-  it("shows a copy control for the install command", async () => {
-    const user = userEvent.setup();
-    const clipboard = {
-      writeText: vi.fn().mockResolvedValue(undefined),
-    };
-
-    vi.stubGlobal("navigator", {
-      clipboard,
-    });
+  it("copies the install command and shows copied state", async () => {
+    vi.mocked(copy).mockReturnValue(true);
 
     render(<FxsaveAgentPage />);
 
-    await user.click(screen.getByRole("button", { name: /copy/i }));
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
 
-    expect(clipboard.writeText).toHaveBeenCalledWith(
-      'tmpdir=$(mktemp -d) && git clone --depth 1 https://github.com/huwangtao123/fxsave-dapp.git "$tmpdir" && mkdir -p ~/.codex/skills/fxsave && cp -R "$tmpdir/skill/." ~/.codex/skills/fxsave/ && rm -rf "$tmpdir"',
+    expect(copy).toHaveBeenCalledWith(
+      "curl -Ls https://raw.githubusercontent.com/huwangtao123/fxsave-dapp/main/skill/SKILL.md",
     );
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: /copied/i })).toBeInTheDocument();
+    });
+  });
+
+  it("keeps copy label when copy fails", () => {
+    vi.mocked(copy).mockReturnValue(false);
+
+    render(<FxsaveAgentPage />);
+
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
+
+    expect(screen.getByRole("button", { name: /copy/i })).toBeInTheDocument();
   });
 });

@@ -1,23 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import copy from "copy-to-clipboard";
 
 import { FxsaveTopMenu } from "@/fxsave/top-menu";
 
-const skillPageUrl = "https://github.com/huwangtao123/fxsave-dapp/blob/main/skill/SKILL.md";
-const repoUrl = "https://github.com/huwangtao123/fxsave-dapp.git";
-const installLocation = "~/.codex/skills/fxsave/";
 const installCommand =
-  'tmpdir=$(mktemp -d) && git clone --depth 1 https://github.com/huwangtao123/fxsave-dapp.git "$tmpdir" && mkdir -p ~/.codex/skills/fxsave && cp -R "$tmpdir/skill/." ~/.codex/skills/fxsave/ && rm -rf "$tmpdir"';
+  "curl -Ls https://raw.githubusercontent.com/huwangtao123/fxsave-dapp/main/skill/SKILL.md";
 
 const installSteps = [
   {
     number: "1.",
-    body: "Run the command above. It copies the full fxSAVE skill folder, including references and scripts.",
+    body: "Run the command above. The output is the self-contained fxUSD skill file.",
   },
   {
     number: "2.",
-    body: "Restart or reload your agent so it picks up the skill from that installed location.",
+    body: "Save it as SKILL.md or load it into your agent's skill system.",
   },
   {
     number: "3.",
@@ -38,24 +36,14 @@ const userActions = [
 
 export function FxsaveAgentPage() {
   const [copied, setCopied] = useState(false);
+  const copyButtonRef = useRef<HTMLButtonElement | null>(null);
 
   async function handleCopyInstall() {
     try {
-      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(installCommand);
-      } else if (typeof document !== "undefined") {
-        const textarea = document.createElement("textarea");
+      const didCopy = copy(installCommand);
 
-        textarea.value = installCommand;
-        textarea.setAttribute("readonly", "");
-        textarea.style.position = "absolute";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-      } else {
-        throw new Error("Clipboard unavailable");
+      if (!didCopy) {
+        throw new Error("Copy command failed");
       }
 
       setCopied(true);
@@ -64,6 +52,24 @@ export function FxsaveAgentPage() {
       setCopied(false);
     }
   }
+
+  useEffect(() => {
+    const button = copyButtonRef.current;
+
+    if (!button) {
+      return;
+    }
+
+    const handleNativeClick = () => {
+      void handleCopyInstall();
+    };
+
+    button.addEventListener("click", handleNativeClick);
+
+    return () => {
+      button.removeEventListener("click", handleNativeClick);
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#041018] font-mono text-white">
@@ -90,23 +96,14 @@ export function FxsaveAgentPage() {
               <div className="flex items-center justify-between gap-4">
                 <code className="overflow-x-auto whitespace-nowrap pr-2">$ {installCommand}</code>
                 <button
+                  ref={copyButtonRef}
                   className="shrink-0 text-sm text-slate-400 transition hover:text-cyan-200"
-                  onClick={handleCopyInstall}
                   type="button"
                 >
                   {copied ? "copied" : "copy"}
                 </button>
               </div>
             </div>
-            <p className="mt-4 break-all text-lg text-slate-400">
-              Skill location: <span className="text-cyan-200">{skillPageUrl}</span>
-            </p>
-            <p className="mt-2 break-all text-lg text-slate-400">
-              Skill repo: <span className="text-cyan-200">{repoUrl}</span>
-            </p>
-            <p className="mt-2 text-lg text-slate-400">
-              Install destination: <span className="text-cyan-200">{installLocation}</span>
-            </p>
             <div className="mt-5 space-y-2 text-lg leading-8 text-slate-400">
               {installSteps.map((item) => (
                 <div key={item.number}>

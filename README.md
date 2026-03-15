@@ -1,10 +1,16 @@
 # fxsave-dapp
 
-`fxsave-dapp` is a Next.js application for moving between Base assets and `fxSAVE` through Enso-powered shortcut bundles.
+`fxsave-dapp` is a Next.js application for using `fxSAVE` on Base through Enso-powered shortcut bundles.
+
+The point of this app and skill is to shortcut the manual cross-chain flow. Instead of having the user think through bridge-to-mainnet, deposit-or-redeem, and bridge-back steps by hand, the app lets them ask for a simple Base-side action and builds the required route behind the scenes.
 
 It supports both directions in one UI:
 - `mint`: Base asset -> Base `fxSAVE`
 - `redeem`: Base `fxSAVE` -> Base asset
+
+In practice, that means:
+- `mint`: Base asset -> bridge to Ethereum mainnet -> deposit into `fxSAVE` -> bridge `fxSAVE` back to Base
+- `redeem`: Base `fxSAVE` -> bridge to Ethereum mainnet -> redeem out of `fxSAVE` -> bridge the output asset back to Base
 
 The app connects a wallet on Base, builds the required Enso bundle on the server, checks token approval when needed, and submits the final transaction from the browser.
 
@@ -52,7 +58,7 @@ fxsave-dapp/
 ├── skill/
 │   ├── SKILL.md
 │   ├── references/api.md
-│   └── scripts/fxsave_cli.py
+│   └── scripts/fxusd_cli.py
 ├── components/
 ├── next.config.ts
 ├── package.json
@@ -71,7 +77,7 @@ fxsave-dapp/
 - Approval API logic: `fxsave/approve-route.ts`
 - API hardening: `fxsave/api-security.ts`
 - Agent docs: `skill/SKILL.md`
-- CLI helper: `skill/scripts/fxsave_cli.py`
+- CLI helper: `skill/scripts/fxusd_cli.py`
 
 ## Supported flow
 
@@ -198,26 +204,26 @@ For payload examples, see:
 
 The project includes a local CLI for previewing bundle and approval plans without opening the UI:
 
-`skill/scripts/fxsave_cli.py`
+`skill/scripts/fxusd_cli.py`
 
 Examples:
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py mint \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py mint \
   --from-address 0x... \
   --amount 1 \
   --source-token fxUSD
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py redeem \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py redeem \
   --from-address 0x... \
   --amount 1 \
   --target-token USDC
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxsave_cli.py approval \
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py approval \
   --from-address 0x... \
   --amount 1 \
   --token fxSAVE

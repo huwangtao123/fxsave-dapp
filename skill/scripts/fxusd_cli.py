@@ -212,7 +212,7 @@ def add_token_arguments(parser: argparse.ArgumentParser, prefix: str, include_fx
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="CLI helper for the fxSAVE Enso website APIs.",
+        description="CLI helper for the fxUSD skill over the fxSAVE Enso website APIs.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 

@@ -604,10 +604,10 @@ export function FxsaveMintApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#041018] font-mono text-white">
+    <div className="relative min-h-screen overflow-hidden bg-[#041018] font-mono text-white">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(7,63,72,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(7,63,72,0.14)_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,225,255,0.08),transparent_26%),linear-gradient(180deg,rgba(4,16,24,0.24),#041018_76%)]" />
-      <div className="relative mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-10 sm:px-8 lg:px-10">
         <FxsaveTopMenu active="home" />
 
         <header className="mb-8 mt-8 space-y-5">
@@ -752,7 +752,7 @@ export function FxsaveMintApp() {
                 </Button>
                 {!isConnected ? (
                   <p className="text-center text-sm text-slate-400">
-                    Connect your wallet from the top right to continue.
+                    Connect your wallet with the button above to continue.
                   </p>
                 ) : null}
               </form>

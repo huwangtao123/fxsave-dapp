@@ -19,7 +19,7 @@ const installSteps = [
   },
   {
     number: "3.",
-    body: "Use the skill to mint or redeem through the app backend, with approval only when needed.",
+    body: "Use the skill to route fxSAVE, Hydrex, and Morpho workflows with protocol-specific guardrails.",
   },
 ];
 
@@ -31,6 +31,14 @@ const userActions = [
   {
     title: "Redeem fxSAVE",
     body: "Redeem 50% of my fxSAVE to fxUSD.",
+  },
+  {
+    title: "Use Hydrex",
+    body: "Deposit 500 fxUSD into the safest stablecoin-farming Hydrex vault.",
+  },
+  {
+    title: "Compare Morpho",
+    body: "Compare supplying fxUSD on Morpho with minting fxSAVE.",
   },
 ];
 
@@ -82,10 +90,10 @@ export function FxsaveAgentPage() {
         <section className="mx-auto max-w-3xl text-center">
           <h1 className="mt-12 text-5xl font-semibold tracking-tight text-cyan-300 sm:text-6xl">Hey, Agent</h1>
           <p className="mt-6 text-xl leading-9 text-slate-300">
-            Install a skill that can mint or redeem fxSAVE in one step.
+            Install a skill that turns fragmented fxUSD workflows into one agent-friendly layer.
           </p>
           <p className="text-xl leading-9 text-slate-300">
-            No more manual bridging between Base and Ethereum mainnet.
+            Cover fxSAVE shortcuts, Hydrex liquidity, and Morpho planning from one skill.
           </p>
         </section>
 

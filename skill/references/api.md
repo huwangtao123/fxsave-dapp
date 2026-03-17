@@ -1,32 +1,37 @@
-# fxUSD Agent API Reference
+# fxSAVE Shortcut API Reference
 
-Version: `v0.2.0`
+Version: `v0.3.0`
 
-This file documents the current app-facing API contract for agent use.
+This file documents the executable `fxSAVE` module inside the broader `fxusd` skill.
+Use it when the user wants the one-step Base shortcut for:
+
+- minting `fxSAVE`
+- redeeming `fxSAVE`
+- previewing the route before execution
 
 ## CLI helper
 
 Script:
-- `/Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py`
+- `scripts/fxusd_cli.py`
 
 Examples:
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py mint \
+python3 scripts/fxusd_cli.py mint \
   --from-address 0x... \
   --amount 1 \
   --source-token fxUSD
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py redeem \
+python3 scripts/fxusd_cli.py redeem \
   --from-address 0x... \
   --amount 1 \
   --target-token USDC
 ```
 
 ```bash
-python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py approval \
+python3 scripts/fxusd_cli.py approval \
   --from-address 0x... \
   --amount 1 \
   --token fxSAVE
@@ -149,6 +154,7 @@ Purpose:
 - In production, the app limits allowed origins and rate limits the public API routes.
 - In production, custom tokens can be disabled. Default support is the configured Base presets only.
 - Detailed upstream Enso request payloads are intended for local debugging and may be omitted in production responses.
+- Final settlement is asynchronous. Base confirmation is not the same thing as final bridged arrival.
 
 ## Current direction mapping
 

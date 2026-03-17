@@ -58,7 +58,11 @@ fxsave-dapp/
 ├── skill/
 │   ├── SKILL.md
 │   ├── references/api.md
-│   └── scripts/fxusd_cli.py
+│   ├── references/hydrex.md
+│   ├── references/morpho.md
+│   └── scripts/
+│       ├── fxusd_cli.py
+│       └── fxusd_hydrex.py
 ├── components/
 ├── next.config.ts
 ├── package.json
@@ -76,8 +80,12 @@ fxsave-dapp/
 - Bundle API logic: `fxsave/bundle-route.ts`
 - Approval API logic: `fxsave/approve-route.ts`
 - API hardening: `fxsave/api-security.ts`
-- Agent docs: `skill/SKILL.md`
+- Agent routing docs: `skill/SKILL.md`
+- fxSAVE shortcut reference: `skill/references/api.md`
+- Hydrex planning reference: `skill/references/hydrex.md`
+- Morpho planning reference: `skill/references/morpho.md`
 - CLI helper: `skill/scripts/fxusd_cli.py`
+- Hydrex planning helper: `skill/scripts/fxusd_hydrex.py`
 
 ## Supported flow
 
@@ -228,6 +236,34 @@ python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_cli.py a
   --amount 1 \
   --token fxSAVE
 ```
+
+For Hydrex single-sided liquidity planning:
+
+`skill/scripts/fxusd_hydrex.py`
+
+Examples:
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_hydrex.py discover --deposit-token fxUSD
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_hydrex.py deposit-plan \
+  --from-address 0x... \
+  --amount 100 \
+  --deposit-token fxUSD
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_hydrex.py withdraw-plan \
+  --from-address 0x... \
+  --deposit-token fxUSD \
+  --vault-title "fxUSD/USDC" \
+  --fraction 0.5
+```
+
+The Hydrex planner reads live Base state so `deposit-plan` and `withdraw-plan` can return execution-ready payloads, not just abstract steps.
+Those plans now also include Bankr-ready `/agent/submit` request bodies for approval and the main Hydrex transaction.
 
 ## Security notes
 

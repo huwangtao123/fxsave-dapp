@@ -62,7 +62,8 @@ fxsave-dapp/
 │   ├── references/morpho.md
 │   └── scripts/
 │       ├── fxusd_cli.py
-│       └── fxusd_hydrex.py
+│       ├── fxusd_hydrex.py
+│       └── fxusd_morpho.py
 ├── components/
 ├── next.config.ts
 ├── package.json
@@ -86,6 +87,7 @@ fxsave-dapp/
 - Morpho planning reference: `skill/references/morpho.md`
 - CLI helper: `skill/scripts/fxusd_cli.py`
 - Hydrex planning helper: `skill/scripts/fxusd_hydrex.py`
+- Morpho planning helper: `skill/scripts/fxusd_morpho.py`
 
 ## Supported flow
 
@@ -264,6 +266,80 @@ python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_hydrex.p
 
 The Hydrex planner reads live Base state so `deposit-plan` and `withdraw-plan` can return execution-ready payloads, not just abstract steps.
 Those plans now also include Bankr-ready `/agent/submit` request bodies for approval and the main Hydrex transaction.
+
+For Morpho market planning:
+
+`skill/scripts/fxusd_morpho.py`
+
+Examples:
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py discover --loan-token fxUSD
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py recommend --loan-token fxUSD --limit 3
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py supply-plan \
+  --from-address 0x... \
+  --amount 100 \
+  --loan-token fxUSD
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py withdraw-plan \
+  --from-address 0x... \
+  --collateral-token wstETH \
+  --fraction 0.5
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py risk-check \
+  --from-address 0x... \
+  --loan-token fxUSD
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py alert-check \
+  --from-address 0x... \
+  --collateral-token BNKR \
+  --fail-on warning
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py borrow-plan \
+  --from-address 0x... \
+  --collateral-token wstETH \
+  --amount 100
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py suggest-borrow-size \
+  --from-address 0x... \
+  --collateral-token BNKR
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py repay-plan \
+  --from-address 0x... \
+  --collateral-token BNKR \
+  --fraction 1
+```
+
+```bash
+python3 /Users/taowang/workspace/skills/fxsave-dapp/skill/scripts/fxusd_morpho.py add-collateral-plan \
+  --from-address 0x... \
+  --collateral-token BNKR \
+  --amount 10
+```
+
+The Morpho planner uses the Morpho GraphQL API for live market discovery and Base RPC reads for token balances, allowances, and onchain position shares.
+It emits execution-ready plus Bankr-ready `supply` and `withdraw` plans for conservative lending flows.
+For borrow, it emits a manual-decision plan with projected LTV checks instead of auto-execution defaults.
+For monitoring, `alert-check` emits `ok / warning / critical` severity and can return a non-zero exit code with `--fail-on` for scheduled checks.
+For risk reduction, `repay-plan` and `add-collateral-plan` emit execution-ready plus Bankr-ready steps so an agent can lower LTV after a warning or critical alert.
 
 ## Security notes
 

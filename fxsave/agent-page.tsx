@@ -19,7 +19,7 @@ const installSteps = [
   },
   {
     number: "3.",
-    body: "Use the skill to route fxSAVE, Hydrex, and Morpho workflows with protocol-specific guardrails.",
+    body: "Use the skill to route, monitor, and defend fxSAVE, Hydrex, and Morpho workflows with protocol-specific guardrails.",
   },
 ];
 
@@ -29,16 +29,20 @@ const userActions = [
     body: "Deposit all my fxUSD in wallet to fxSAVE.",
   },
   {
-    title: "Redeem fxSAVE",
-    body: "Redeem 50% of my fxSAVE to fxUSD.",
-  },
-  {
     title: "Use Hydrex",
     body: "Deposit 500 fxUSD into the safest stablecoin-farming Hydrex vault.",
   },
   {
-    title: "Compare Morpho",
-    body: "Compare supplying fxUSD on Morpho with minting fxSAVE.",
+    title: "Watch Morpho risk",
+    body: "Alert me if my BNKR-backed fxUSD borrow moves into warning or critical territory.",
+  },
+  {
+    title: "Repay Morpho debt",
+    body: "Build a repay plan to lower risk on my Morpho fxUSD position.",
+  },
+  {
+    title: "Add Morpho collateral",
+    body: "Build an add-collateral plan for my BNKR-backed fxUSD borrow.",
   },
 ];
 
@@ -90,10 +94,10 @@ export function FxsaveAgentPage() {
         <section className="mx-auto max-w-3xl text-center">
           <h1 className="mt-12 text-5xl font-semibold tracking-tight text-cyan-300 sm:text-6xl">Hey, Agent</h1>
           <p className="mt-6 text-xl leading-9 text-slate-300">
-            Install a skill that turns fragmented fxUSD workflows into one agent-friendly layer.
+            Install a skill that turns fragmented fxUSD strategies into one agent-friendly layer.
           </p>
           <p className="text-xl leading-9 text-slate-300">
-            Cover fxSAVE shortcuts, Hydrex liquidity, and Morpho planning from one skill.
+            Cover fxSAVE shortcuts, Hydrex liquidity, and Morpho monitoring plus defense from one skill.
           </p>
         </section>
 

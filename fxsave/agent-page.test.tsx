@@ -16,25 +16,33 @@ describe("FxsaveAgentPage", () => {
     expect(screen.getByRole("link", { name: /app/i })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /agent/i })).toHaveAttribute("href", "/agent");
     expect(
-      screen.getByText(/install a skill that turns fragmented fxusd workflows into one agent-friendly layer\./i),
+      screen.getByText(/install a skill that turns fragmented fxusd strategies into one agent-friendly layer\./i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/cover fxsave shortcuts, hydrex liquidity, and morpho planning from one skill\./i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/cover fxsave shortcuts, hydrex liquidity, and morpho monitoring plus defense from one skill\./i),
+    ).toBeInTheDocument();
     expect(screen.getByText(/what you can do/i)).toBeInTheDocument();
     expect(screen.getByText(/> mint fxsave/i)).toBeInTheDocument();
     expect(screen.getByText(/deposit all my fxusd in wallet to fxsave\./i)).toBeInTheDocument();
-    expect(screen.getByText(/> redeem fxsave/i)).toBeInTheDocument();
-    expect(screen.getByText(/redeem 50% of my fxsave to fxusd\./i)).toBeInTheDocument();
     expect(screen.getByText(/> use hydrex/i)).toBeInTheDocument();
     expect(screen.getByText(/deposit 500 fxusd into the safest stablecoin-farming hydrex vault\./i)).toBeInTheDocument();
-    expect(screen.getByText(/> compare morpho/i)).toBeInTheDocument();
-    expect(screen.getByText(/compare supplying fxusd on morpho with minting fxsave\./i)).toBeInTheDocument();
+    expect(screen.getByText(/> watch morpho risk/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/alert me if my bnkr-backed fxusd borrow moves into warning or critical territory\./i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/> repay morpho debt/i)).toBeInTheDocument();
+    expect(screen.getByText(/build a repay plan to lower risk on my morpho fxusd position\./i)).toBeInTheDocument();
+    expect(screen.getByText(/> add morpho collateral/i)).toBeInTheDocument();
+    expect(screen.getByText(/build an add-collateral plan for my bnkr-backed fxusd borrow\./i)).toBeInTheDocument();
     expect(screen.queryByText(/skill location:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/skill repo:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/install destination:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/auth/i)).not.toBeInTheDocument();
     expect(screen.getByText(/the output is the self-contained fxusd skill file\./i)).toBeInTheDocument();
     expect(
-      screen.getByText(/use the skill to route fxsave, hydrex, and morpho workflows with protocol-specific guardrails\./i),
+      screen.getByText(
+        /use the skill to route, monitor, and defend fxsave, hydrex, and morpho workflows with protocol-specific guardrails\./i,
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByText(

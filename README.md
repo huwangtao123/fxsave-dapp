@@ -46,6 +46,10 @@ fxsave-dapp/
 │   ├── layout.tsx
 │   └── page.tsx
 ├── fxsave/
+│   ├── components/
+│   │   ├── debug-panel.tsx
+│   │   ├── metric-card.tsx
+│   │   └── token-select.tsx
 │   ├── agent-page.tsx
 │   ├── api-security.ts
 │   ├── approve-route.ts
@@ -55,6 +59,8 @@ fxsave-dapp/
 │   ├── top-menu.tsx
 │   ├── wagmi-config.ts
 │   └── wallet-provider.tsx
+├── lib/
+│   └── format.ts
 ├── skill/
 │   ├── SKILL.md
 │   ├── references/api.md
@@ -64,7 +70,7 @@ fxsave-dapp/
 │       ├── fxusd_cli.py
 │       ├── fxusd_hydrex.py
 │       └── fxusd_morpho.py
-├── components/
+├── components/ui/
 ├── next.config.ts
 ├── package.json
 └── README.md
@@ -77,6 +83,8 @@ fxsave-dapp/
 - Shared wallet provider: `app/layout.tsx`
 - Main UI: `fxsave/mint-app.tsx`
 - Agent page UI: `fxsave/agent-page.tsx`
+- Shared formatting helpers: `lib/format.ts`
+- UI subcomponents: `fxsave/components/`
 - Token and flow config: `fxsave/config.ts`
 - Bundle API logic: `fxsave/bundle-route.ts`
 - Approval API logic: `fxsave/approve-route.ts`

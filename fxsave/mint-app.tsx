@@ -1,15 +1,13 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowUpDown,
-  ChevronDown,
   CircleDashed,
   ExternalLink,
   Flame,
   RefreshCw,
   ShieldCheck,
-  Wallet,
   Waves,
 } from "lucide-react";
 import { erc20Abi, type Address, type Hex } from "viem";
@@ -33,7 +31,11 @@ import {
   isAddress,
   parseUnits,
 } from "@/fxsave/config";
+import { TextInput, OutputBlock, CodeBlock } from "@/fxsave/components/debug-panel";
+import { MetricCard } from "@/fxsave/components/metric-card";
+import { TokenSelect, StaticField } from "@/fxsave/components/token-select";
 import { FxsaveTopMenu } from "@/fxsave/top-menu";
+import { shortAddress, formatTokenAmount } from "@/lib/format";
 
 type PresetToken = (typeof FXSAVE_CONFIG.baseTokenOptions)[number];
 
@@ -142,26 +144,7 @@ function extractApprovalTx(payload: unknown): ApprovalTx | null {
   };
 }
 
-function shortAddress(value?: string) {
-  if (!value || value.length < 10) {
-    return value ?? "Not connected";
-  }
 
-  return `${value.slice(0, 6)}...${value.slice(-4)}`;
-}
-
-function formatTokenAmount(value: string, decimals: number, fractionDigits = 4) {
-  const normalized = value.replace(/^0+/, "") || "0";
-  const padded = normalized.padStart(decimals + 1, "0");
-  const whole = padded.slice(0, padded.length - decimals) || "0";
-  const fraction = padded.slice(padded.length - decimals).replace(/0+$/, "");
-
-  if (!fraction) {
-    return whole;
-  }
-
-  return `${whole}.${fraction.slice(0, fractionDigits)}`;
-}
 
 function extractBundleAmounts(payload: unknown): BundleAmounts | null {
   if (!isRecord(payload)) {
@@ -859,87 +842,6 @@ export function FxsaveMintApp() {
           ) : null}
         </main>
       </div>
-    </div>
-  );
-}
-
-function TokenSelect(props: { onChange: (value: string) => void; value: string }) {
-  return (
-    <div className="relative">
-      <select
-        className="h-14 w-full appearance-none border border-cyan-400/25 bg-[#020b11] px-4 pr-10 text-base text-white outline-none transition hover:border-cyan-300/40 focus:border-cyan-300/40 focus-visible:ring-2 focus-visible:ring-cyan-300/60"
-        onChange={(event) => props.onChange(event.target.value)}
-        value={props.value}
-      >
-        {FXSAVE_CONFIG.baseTokenOptions.map((token) => (
-          <option key={token.symbol} value={token.symbol}>
-            {token.label}
-          </option>
-        ))}
-        {SHOW_DEBUG_DETAILS ? <option value="custom">Custom token</option> : null}
-      </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-    </div>
-  );
-}
-
-function StaticField(props: { value: string }) {
-  return (
-    <div className="flex h-14 items-center border border-cyan-400/25 bg-[#020b11] px-4 text-base text-white">
-      {props.value}
-    </div>
-  );
-}
-
-function MetricCard(props: { icon: ReactNode; label: string; value: string }) {
-  return (
-    <div className="border border-cyan-400/25 bg-[rgba(4,16,24,0.76)] px-4 py-4 text-sm text-slate-300">
-      <div className="mb-3 flex size-9 items-center justify-center bg-cyan-300/10 text-cyan-200">
-        {props.icon}
-      </div>
-      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">{props.label}</p>
-      <p className="mt-2 text-lg font-semibold text-white">{props.value}</p>
-    </div>
-  );
-}
-
-function TextInput(props: {
-  label: string;
-  placeholder: string;
-  readOnly?: boolean;
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-2 block text-sm font-medium text-slate-300">{props.label}</span>
-      <input
-        className="h-12 w-full border border-cyan-400/25 bg-[#020b11] px-4 text-sm text-white outline-none transition placeholder:text-slate-600 hover:border-cyan-300/40 focus:border-cyan-300/40 focus-visible:ring-2 focus-visible:ring-cyan-300/60 read-only:cursor-not-allowed read-only:opacity-80"
-        onChange={(event) => props.onChange(event.target.value)}
-        placeholder={props.placeholder}
-        readOnly={props.readOnly}
-        value={props.value}
-      />
-    </label>
-  );
-}
-
-function OutputBlock(props: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-white/6 bg-white/[0.03] px-4 py-3">
-      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{props.label}</p>
-      <p className="mt-2 break-all font-mono text-sm text-slate-200">{props.value}</p>
-    </div>
-  );
-}
-
-function CodeBlock(props: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="mb-2 text-xs uppercase tracking-[0.2em] text-slate-500">{props.label}</p>
-      <pre className="max-h-72 overflow-auto rounded-2xl border border-white/6 bg-[#02070a] p-4 text-xs leading-6 text-slate-200">
-        <code>{props.value}</code>
-      </pre>
     </div>
   );
 }

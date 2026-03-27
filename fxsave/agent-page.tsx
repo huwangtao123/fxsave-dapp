@@ -103,7 +103,7 @@ export function FxsaveAgentPage() {
 
         <div className="mx-auto mt-12 max-w-5xl space-y-6">
           <section className="border border-cyan-400/30 bg-[rgba(4,16,24,0.76)] px-5 py-6 sm:px-6">
-            <p className="text-3xl font-semibold text-cyan-300">// install</p>
+            <p className="text-3xl font-semibold text-cyan-300">{"// install"}</p>
             <div className="mt-6 border border-cyan-400/25 bg-[#020b11] px-4 py-4 text-base text-cyan-100">
               <div className="flex items-center justify-between gap-4">
                 <code className="overflow-x-auto whitespace-nowrap pr-2">$ {installCommand}</code>
@@ -127,7 +127,7 @@ export function FxsaveAgentPage() {
           </section>
 
           <section className="border border-cyan-400/30 bg-[rgba(4,16,24,0.76)] px-5 py-6 sm:px-6">
-            <p className="text-3xl font-semibold text-cyan-300">// what you can do</p>
+            <p className="text-3xl font-semibold text-cyan-300">{"// what you can do"}</p>
             <div className="mt-5 space-y-4 text-lg leading-8 text-slate-400">
               {userActions.map((item) => (
                 <div key={item.title}>

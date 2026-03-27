@@ -14,7 +14,7 @@ metadata:
 
 # fxusd
 
-Version: `v0.9.0`
+Version: `v1.0.0`
 
 Use this skill when the user wants a simpler way to put `fxUSD` to work on Base.
 
@@ -331,3 +331,24 @@ Useful natural-language styles:
 - `scripts/fxusd_hydrex.py` — Discover Hydrex vaults, classify risk, and emit execution-ready plus Bankr-ready Hydrex transactions
 - `scripts/fxusd_morpho.py` — Discover Morpho Blue markets, inspect positions, emit execution-ready plus Bankr-ready supply/withdraw plans, and compute LTV-aware borrow plans
   including safer maximum borrow-size suggestions
+
+## Changelog
+
+### v1.0.0 — 2026-03-26
+
+- Unified font loading and fixed app metadata
+- Removed Tempo pool tracker module
+- Extracted shared helpers into `lib/format.ts`
+- Decomposed `mint-app.tsx` into reusable subcomponents (`fxsave/components/`)
+- Cleaned unused `pg` dependency
+- Updated README and project structure
+
+### v0.9.0
+
+- Added Morpho `repay-plan`, `add-collateral-plan`, `suggest-borrow-size`, and `alert-check`
+- Added Bankr-ready steps for Hydrex and Morpho workflows
+- Extended Morpho risk controls with severity levels
+
+### v0.2.1
+
+- Initial fxSAVE-only skill with mint, redeem, and approval flow

@@ -1,0 +1,139 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGlow" x1="240" y1="120" x2="1360" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#062431"/>
+      <stop offset="0.5" stop-color="#041018"/>
+      <stop offset="1" stop-color="#02070C"/>
+    </linearGradient>
+    <linearGradient id="panelStroke" x1="320" y1="260" x2="1280" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#54E3FF"/>
+      <stop offset="1" stop-color="#2FD4A0"/>
+    </linearGradient>
+    <linearGradient id="cyanLine" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#63E9FF"/>
+      <stop offset="1" stop-color="#29D3A2"/>
+    </linearGradient>
+    <radialGradient id="heroGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(784 226) rotate(90) scale(290 620)">
+      <stop stop-color="#0B4957" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#0B4957" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#02070C"/>
+  <rect width="1600" height="900" fill="url(#bgGlow)"/>
+  <rect width="1600" height="900" fill="url(#heroGlow)"/>
+
+  <g opacity="0.22" stroke="#0D4D57" stroke-width="1">
+    <path d="M0 72H1600"/>
+    <path d="M0 152H1600"/>
+    <path d="M0 232H1600"/>
+    <path d="M0 312H1600"/>
+    <path d="M0 392H1600"/>
+    <path d="M0 472H1600"/>
+    <path d="M0 552H1600"/>
+    <path d="M0 632H1600"/>
+    <path d="M0 712H1600"/>
+    <path d="M0 792H1600"/>
+    <path d="M100 0V900"/>
+    <path d="M220 0V900"/>
+    <path d="M340 0V900"/>
+    <path d="M460 0V900"/>
+    <path d="M580 0V900"/>
+    <path d="M700 0V900"/>
+    <path d="M820 0V900"/>
+    <path d="M940 0V900"/>
+    <path d="M1060 0V900"/>
+    <path d="M1180 0V900"/>
+    <path d="M1300 0V900"/>
+    <path d="M1420 0V900"/>
+    <path d="M1540 0V900"/>
+  </g>
+
+  <text x="800" y="110" text-anchor="middle" fill="#63E9FF" font-size="64" font-family="'Orbitron', 'Exo 2', sans-serif" font-weight="700" letter-spacing="1.5">
+    Morpho, but risk-aware
+  </text>
+  <text x="800" y="162" text-anchor="middle" fill="#C8D4DA" font-size="26" font-family="'Exo 2', sans-serif" font-weight="500">
+    The fxUSD skill can open, monitor, and defend a Morpho position on Base.
+  </text>
+  <text x="800" y="198" text-anchor="middle" fill="#92A8B3" font-size="21" font-family="'Exo 2', sans-serif" font-weight="400">
+    Not just borrow. Check risk, size safely, alert early, then repay or add collateral.
+  </text>
+
+  <rect x="190" y="252" width="1220" height="430" rx="22" fill="rgba(3,14,20,0.84)" stroke="url(#panelStroke)" stroke-width="2"/>
+  <text x="238" y="302" fill="#63E9FF" font-size="28" font-family="'Orbitron', 'Exo 2', sans-serif" font-weight="600">// complete workflow</text>
+
+  <g>
+    <rect x="238" y="338" width="244" height="254" rx="22" fill="#04131B" stroke="#1F6975" stroke-width="2"/>
+    <circle cx="278" cy="380" r="18" fill="#0B4957"/>
+    <text x="278" y="387" text-anchor="middle" fill="#63E9FF" font-size="18" font-family="'Orbitron', sans-serif" font-weight="700">1</text>
+    <text x="312" y="384" fill="#F2FAFD" font-size="30" font-family="'Exo 2', sans-serif" font-weight="700">Borrow</text>
+    <text x="262" y="435" fill="#7DE7FF" font-size="18" font-family="'Exo 2', sans-serif" font-weight="600">BNKR as collateral</text>
+    <text x="262" y="466" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Check the market.</text>
+    <text x="262" y="494" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Suggest a safer size.</text>
+    <text x="262" y="522" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Build the borrow plan.</text>
+    <rect x="262" y="548" width="196" height="1.5" fill="#11424C"/>
+    <text x="262" y="580" fill="#54E3FF" font-size="17" font-family="'Exo 2', sans-serif">fxUSD / BNKR</text>
+  </g>
+
+  <g>
+    <rect x="524" y="338" width="244" height="254" rx="22" fill="#04131B" stroke="#1F6975" stroke-width="2"/>
+    <circle cx="564" cy="380" r="18" fill="#0B4957"/>
+    <text x="564" y="387" text-anchor="middle" fill="#63E9FF" font-size="18" font-family="'Orbitron', sans-serif" font-weight="700">2</text>
+    <text x="598" y="384" fill="#F2FAFD" font-size="30" font-family="'Exo 2', sans-serif" font-weight="700">Monitor</text>
+    <text x="548" y="435" fill="#7DE7FF" font-size="18" font-family="'Exo 2', sans-serif" font-weight="600">Alert-only checks</text>
+    <text x="548" y="466" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Track LTV.</text>
+    <text x="548" y="494" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Track health factor.</text>
+    <text x="548" y="522" fill="#A7BBC3" font-size="18" font-family="'Exo 2', sans-serif">Track liquidation distance.</text>
+    <rect x="548" y="548" width="196" height="1.5" fill="#11424C"/>
+    <text x="548" y="580" fill="#54E3FF" font-size="17" font-family="'Exo 2', sans-serif">ok / warning / critical</text>
+  </g>
+
+  <g>
+    <rect x="810" y="338" width="244" height="254" rx="22" fill="#071117" stroke="#B15E22" stroke-width="2"/>
+    <circle cx="850" cy="380" r="18" fill="#4A1F0E"/>
+    <text x="850" y="387" text-anchor="middle" fill="#FFB566" font-size="18" font-family="'Orbitron', sans-serif" font-weight="700">3</text>
+    <text x="884" y="384" fill="#FFF4EA" font-size="30" font-family="'Exo 2', sans-serif" font-weight="700">Alert</text>
+    <text x="834" y="435" fill="#FFBE7A" font-size="18" font-family="'Exo 2', sans-serif" font-weight="600">Catch risk earlier</text>
+    <text x="834" y="466" fill="#D4B9A5" font-size="18" font-family="'Exo 2', sans-serif">No blind leverage.</text>
+    <text x="834" y="494" fill="#D4B9A5" font-size="18" font-family="'Exo 2', sans-serif">No stale safety assumptions.</text>
+    <text x="834" y="522" fill="#D4B9A5" font-size="18" font-family="'Exo 2', sans-serif">No waiting for liquidation.</text>
+    <rect x="834" y="548" width="196" height="1.5" fill="#5A2D18"/>
+    <text x="834" y="580" fill="#FFB566" font-size="17" font-family="'Exo 2', sans-serif">warning -> act</text>
+  </g>
+
+  <g>
+    <rect x="1096" y="338" width="266" height="254" rx="22" fill="#04131B" stroke="#1D8A6A" stroke-width="2"/>
+    <circle cx="1136" cy="380" r="18" fill="#0F3C31"/>
+    <text x="1136" y="387" text-anchor="middle" fill="#5FF5C5" font-size="18" font-family="'Orbitron', sans-serif" font-weight="700">4</text>
+    <text x="1170" y="384" fill="#F1FEFA" font-size="30" font-family="'Exo 2', sans-serif" font-weight="700">Defend</text>
+    <text x="1122" y="435" fill="#8BFFD9" font-size="18" font-family="'Exo 2', sans-serif" font-weight="600">Two safer responses</text>
+    <text x="1122" y="466" fill="#A7D8CB" font-size="18" font-family="'Exo 2', sans-serif">Repay debt to lower LTV.</text>
+    <text x="1122" y="494" fill="#A7D8CB" font-size="18" font-family="'Exo 2', sans-serif">Or add collateral to widen buffer.</text>
+    <text x="1122" y="522" fill="#A7D8CB" font-size="18" font-family="'Exo 2', sans-serif">Then re-run alert-check.</text>
+    <rect x="1122" y="548" width="214" height="1.5" fill="#155541"/>
+    <text x="1122" y="580" fill="#5FF5C5" font-size="17" font-family="'Exo 2', sans-serif">repay-plan / add-collateral-plan</text>
+  </g>
+
+  <g filter="url(#softGlow)" stroke="url(#cyanLine)" stroke-width="3" stroke-linecap="round" opacity="0.95">
+    <path d="M482 465H524"/>
+    <path d="M768 465H810"/>
+    <path d="M1054 465H1096"/>
+  </g>
+
+  <g>
+    <rect x="240" y="724" width="1120" height="100" rx="18" fill="#061118" stroke="#194A56" stroke-width="1.5"/>
+    <text x="280" y="770" fill="#63E9FF" font-size="28" font-family="'Orbitron', 'Exo 2', sans-serif" font-weight="600">
+      fxUSD skill update
+    </text>
+    <text x="280" y="805" fill="#D2DDE3" font-size="24" font-family="'Exo 2', sans-serif">
+      Morpho now supports alert-check, repay-plan, add-collateral-plan, and safer borrow sizing.
+    </text>
+  </g>
+</svg>
